@@ -11,6 +11,10 @@ class Boardgame
     doc.elements.select { |el| el.name == 'description' }.first.text
   end
 
+  def designers
+    doc.elements.select { |el| el.name == 'boardgamedesigner' }.map(&:text)
+  end
+
   def min_players
     doc.minplayers.text.to_i
   end
