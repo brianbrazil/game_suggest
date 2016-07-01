@@ -1,3 +1,5 @@
+require 'queryable'
+
 class Collection
 
   def initialize(doc)
@@ -16,7 +18,7 @@ class Collection
     @boardgames ||= begin
       games_doc = Nokogiri::Slop HTTParty.get("http://www.boardgamegeek.com/xmlapi/boardgame/#{boardgame_ids.join(',')}?stats=1").body
       games_doc.boardgames.boardgame.map { |boardgame_doc| Boardgame.new(boardgame_doc) }
-    end
+    end.extend(Queryable)
   end
 
   def boardgame_ids
